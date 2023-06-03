@@ -71,8 +71,6 @@ test/samples/*/*/diff.png
 test/samples/*/*/master_temp.htm
 *.htm
 
-package-lock.json
-
 # linux .directory
 .directory
 
