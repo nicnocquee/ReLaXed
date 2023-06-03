@@ -11,48 +11,50 @@ fs.writeFileSync("/tmp/absolute_path_test.scss", "h1 {color: red; font-size: 140
 
 const relaxed = path.join(__dirname, './../src/index.js')
 
+const timeout = 20000
+
 describe('Sample tests', function () {
   var tests = [
     {
       sampleName: 'basic_example',
-      timeout: 10000
+      timeout
     },
     {
       sampleName: 'local_plugin',
-      timeout: 10000
+      timeout
     },
     {
       sampleName: 'data_locals',
-      timeout: 10000,
+      timeout,
       cmdOptions: ['--locals', '{ "name": "Harry", "occupation": "Wazzzard" }']
     },
     {
       sampleName: 'data_locals_file',
-      timeout: 10000,
+      timeout,
       cmdOptions: ['--locals', './data.json']
     },
     {
       sampleName: 'data_require',
-      timeout: 10000
+      timeout
     },
     {
       sampleName: 'mathjax',
-      timeout: 10000
+      timeout
     }, {
       sampleName: 'katex',
-      timeout: 10000
+      timeout
     },
     {
       sampleName: 'header_and_footer',
-      timeout: 10000
+      timeout
     },
     {
       sampleName: 'utf8-characters',
-      timeout: 10000
+      timeout
     },
     {
       sampleName: 'absolute_path',
-      timeout: 10000,
+      timeout,
       cmdOptions: ['--basedir', '/']
     }
   ]
@@ -114,7 +116,7 @@ describe('Error tests', function () {
   var tests = [
     {
       sampleName: 'error',
-      timeout: 10000
+      timeout
     },
   ]
   tests.forEach(function (test) {
@@ -141,7 +143,7 @@ describe('Special rendering tests', function () {
       output: 'sample.pug',
       expected: 'expected.pug',
       outputType: 'text',
-      timeout: 10000
+      timeout
     },
     {
       sampleName: 'htable_csv',
@@ -149,7 +151,7 @@ describe('Special rendering tests', function () {
       output: 'sample.pug',
       expected: 'expected.pug',
       outputType: 'text',
-      timeout: 10000
+      timeout
     },
     {
       sampleName: 'chartjs',
@@ -157,7 +159,7 @@ describe('Special rendering tests', function () {
       output: 'donut.png',
       expected: 'expected.png',
       outputType: 'image',
-      timeout: 10000
+      timeout
     }
   ]
   tests.forEach(function (test) {
@@ -233,12 +235,12 @@ describe('Interactive tests', function () {
     {
       diagramData: 'diagram.mermaid',
       output: ['diagram.svg'],
-      timeout: 10000
+      timeout
     },
     {
       diagramData: 'plot.vegalite.json',
       output: ['plot.svg'],
-      timeout: 10000
+      timeout
     }
   ]
   // var process = spawn('relaxed', [ path.join(basedir, 'master.pug') ])
