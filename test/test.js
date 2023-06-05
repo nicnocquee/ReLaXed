@@ -153,8 +153,12 @@ describe("Error tests", function () {
           "--no-sandbox",
         ].concat(test.cmdOptions || [])
       );
+      process.stdout.on("data", (data) => {
+        console.log(`stdout: ${data}`);
+      });
       process.on("close", function (code) {
         try {
+          console.log(code);
           assert.equal(code, 0);
         } catch (error) {
           done(error);
