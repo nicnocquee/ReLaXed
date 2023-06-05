@@ -75,6 +75,7 @@ describe("Sample tests", function () {
         html: path.join(basedir, "master_temp.htm"),
       };
 
+      console.dir(paths, { depth: null });
       var process = spawn(
         relaxed,
         [paths.master, "--build-once", "--no-sandbox"].concat(
