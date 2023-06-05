@@ -157,13 +157,7 @@ describe("Error tests", function () {
         console.log(`stdout: ${data}`);
       });
       process.on("close", function (code) {
-        try {
-          console.log(code);
-          assert.equal(code, 0);
-        } catch (error) {
-          done(error);
-          return;
-        }
+        assert.equal(code, 1);
         done();
       });
     });
