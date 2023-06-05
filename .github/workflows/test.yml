@@ -12,5 +12,5 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Tese
-        run: docker build  -t relaxedjs-test . && docker run -it relaxedjs-test
+      - name: Test
+        run: docker build  -t relaxedjs-test . && docker run relaxedjs-test
