@@ -204,9 +204,6 @@ describe("Special rendering tests", function () {
         "--build-once",
         "--no-sandbox",
       ]);
-      process.stdout.on("data", (data) => {
-        console.log(`stdout: ${data}`);
-      });
       process.on("close", async function (code) {
         try {
           assert.equal(code, 0);

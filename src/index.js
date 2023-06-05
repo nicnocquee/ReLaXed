@@ -134,22 +134,17 @@ var updateConfig = async function () {
 };
 
 async function main() {
-  console.log(`1. - `);
   console.log(colors.magenta.bold("Launching ReLaXed..."));
 
   // LOAD BUILT-IN "ALWAYS-ON" PLUGINS
   for (var [i, plugin] of plugins.builtinDefaultPlugins.entries()) {
     plugins.builtinDefaultPlugins[i] = await plugin.constructor();
   }
-  console.log(`2. - `);
   await updateConfig();
-  console.log(`3. - `);
   try {
     const browser = await puppeteer.launch(puppeteerConfig);
-    console.log(`4. - `);
     relaxedGlobals.puppeteerPage = await browser.newPage();
 
-    console.log(`5. - `);
     relaxedGlobals.puppeteerPage
       .on("pageerror", function (err) {
         console.log(colors.red("Page error: " + err.toString()));
@@ -158,25 +153,19 @@ async function main() {
         console.log(colors.red("Error: " + err.toString()));
       });
   } catch (error) {
-    console.log(`-7`);
     console.log(error);
     process.exit(1);
   }
 
   try {
-    console.log(`6. - `);
     const buildError = await build(inputPath);
 
     if (options.buildOnce) {
-      console.log(`we are here`);
-      console.log(buildError);
       process.exit(buildError ? 1 : 0);
     } else {
       watch();
     }
   } catch (error) {
-    console.log(`huh`);
-    console.log(error);
     process.exit(1);
   }
 }
