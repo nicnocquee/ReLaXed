@@ -1,5 +1,5 @@
 {
-  "name": "relaxedjs",
+  "name": "@nicnocquee/relaxedjs",
   "version": "0.2.5",
   "description": "Create PDF documents using web technologies (PDF/SCSS)",
   "main": "src/masterToPDF.js",
@@ -12,7 +12,7 @@
     "test": "mocha"
   },
   "author": "Zulko",
-  "homepage": "https://github.com/RelaxedJS",
+  "homepage": "https://github.com/nicnocquee/ReLaXed",
   "license": "ISC",
   "dependencies": {
     "@iktakahiro/markdown-it-katex": "^4.0.1",
