@@ -199,7 +199,11 @@ describe("Special rendering tests", function () {
         diff: path.join(basedir, "diff." + diffExtension),
         lastOutput: path.join(basedir, "last_test_" + test.output),
       };
-      var process = spawn(relaxed, [paths.master, "--build-once"]);
+      var process = spawn(relaxed, [
+        paths.master,
+        "--build-once",
+        "--no-sandbox",
+      ]);
       process.stdout.on("data", (data) => {
         console.log(`stdout: ${data}`);
       });
