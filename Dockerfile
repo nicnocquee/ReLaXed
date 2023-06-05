@@ -49,4 +49,5 @@ COPY . .
 
 # Define command to run your app using CMD which defines your runtime
 # Here we are using "npm run test"
+ENV CHROME_EXEC_PATH /usr/bin/google-chrome
 CMD [ "npm", "run", "test" ]

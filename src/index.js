@@ -95,7 +95,7 @@ let locals = parseLocals(options.locals, inputDir);
 
 // Google Chrome headless configuration
 const puppeteerConfig = {
-  executablePath: "/usr/bin/google-chrome",
+  executablePath: process.env.CHROME_EXEC_PATH,
   headless: true,
   args: (!options.sandbox ? ["--no-sandbox"] : []).concat([
     "--single-process",
