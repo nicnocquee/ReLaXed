@@ -75,22 +75,17 @@ describe("Sample tests", function () {
         html: path.join(basedir, "master_temp.htm"),
       };
 
-      console.dir({ paths, test }, { depth: null });
       var process = spawn(
         relaxed,
         [paths.master, "--build-once", "--no-sandbox"].concat(
           test.cmdOptions || []
         )
       );
-      process.stdout.on("data", (data) => {
-        console.log(`stdout: ${data}`);
-      });
+
       process.on("close", async function (code) {
-        console.log(`test.js ${test.sampleName}: process on close`);
         try {
           assert.equal(code, 0);
         } catch (error) {
-          console.log(`test.js ${test.sampleName}: assert code error`);
           done(error);
           return;
         }
@@ -101,7 +96,6 @@ describe("Sample tests", function () {
         try {
           var imgPath = await pdfImage.convertFile();
         } catch (error) {
-          console.log(`test.js ${test.sampleName}: convertFile error`);
           done(error);
           return;
         }
@@ -115,16 +109,12 @@ describe("Sample tests", function () {
         });
 
         diff.run((error, result) => {
-          console.log(`test.js ${test.sampleName}: diff.run`);
           fs.unlinkSync(paths.pdf);
           fs.unlinkSync(paths.html);
           fs.renameSync(imgPath, paths.lastTestPNG);
           if (error) {
-            console.log(`test.js ${test.sampleName}: diff.run error`);
             console.error(error);
           } else {
-            console.log(`test.js ${test.sampleName}: diff.run not error`);
-            console.log(`test.js ${test.sampleName}:`, result);
             assert(diff.hasPassed(result.code));
           }
           done();
@@ -153,9 +143,6 @@ describe("Error tests", function () {
           "--no-sandbox",
         ].concat(test.cmdOptions || [])
       );
-      process.stdout.on("data", (data) => {
-        console.log(`stdout: ${data}`);
-      });
       process.on("close", function (code) {
         assert.equal(code, 1);
         done();
@@ -213,6 +200,9 @@ describe("Special rendering tests", function () {
         lastOutput: path.join(basedir, "last_test_" + test.output),
       };
       var process = spawn(relaxed, [paths.master, "--build-once"]);
+      process.stdout.on("data", (data) => {
+        console.log(`stdout: ${data}`);
+      });
       process.on("close", async function (code) {
         try {
           assert.equal(code, 0);
