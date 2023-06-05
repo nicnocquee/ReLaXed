@@ -75,7 +75,7 @@ describe("Sample tests", function () {
         html: path.join(basedir, "master_temp.htm"),
       };
 
-      console.dir(paths, { depth: null });
+      console.dir({ paths, test }, { depth: null });
       var process = spawn(
         relaxed,
         [paths.master, "--build-once", "--no-sandbox"].concat(
@@ -86,11 +86,11 @@ describe("Sample tests", function () {
         console.log(`stdout: ${data}`);
       });
       process.on("close", async function (code) {
-        console.log(`test.js: process on close`);
+        console.log(`test.js ${test.sampleName}: process on close`);
         try {
           assert.equal(code, 0);
         } catch (error) {
-          console.log(`test.js: assert code error`);
+          console.log(`test.js ${test.sampleName}: assert code error`);
           done(error);
           return;
         }
@@ -101,7 +101,7 @@ describe("Sample tests", function () {
         try {
           var imgPath = await pdfImage.convertFile();
         } catch (error) {
-          console.log(`test.js: convertFile error`);
+          console.log(`test.js ${test.sampleName}: convertFile error`);
           done(error);
           return;
         }
@@ -115,16 +115,16 @@ describe("Sample tests", function () {
         });
 
         diff.run((error, result) => {
-          console.log(`test.js: diff.run`);
+          console.log(`test.js ${test.sampleName}: diff.run`);
           fs.unlinkSync(paths.pdf);
           fs.unlinkSync(paths.html);
           fs.renameSync(imgPath, paths.lastTestPNG);
           if (error) {
-            console.log(`test.js: diff.run error`);
+            console.log(`test.js ${test.sampleName}: diff.run error`);
             console.error(error);
           } else {
-            console.log(`test.js: diff.run not error`);
-            console.log(`test.js:`, result);
+            console.log(`test.js ${test.sampleName}: diff.run not error`);
+            console.log(`test.js ${test.sampleName}:`, result);
             assert(diff.hasPassed(result.code));
           }
           done();
