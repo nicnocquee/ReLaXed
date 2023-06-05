@@ -3,14 +3,13 @@ name: Test
 on:
   workflow_dispatch: null
   push:
-    branches: ["master"]
+    branches: ["main"]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
-
       - name: Test
         run: docker build  -t relaxedjs-test . && docker run relaxedjs-test
