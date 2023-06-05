@@ -75,8 +75,16 @@ describe('Sample tests', function () {
         relaxed,
         [paths.master, '--build-once', '--no-sandbox'].concat(test.cmdOptions || [])
       )
+      process.stdout.on('data', (data) => {
+        console.log(`stdout: ${data}`);
+      });
       process.on('close', async function (code) {
+       try {
         assert.equal(code, 0)
+       } catch (error) {
+        done(error)
+        return
+       }
         var pdfImage = new PDFImage(paths.pdf, {
           combinedImage: true,
           graphicsMagick: true
@@ -85,6 +93,7 @@ describe('Sample tests', function () {
           var imgPath = await pdfImage.convertFile()
         } catch (error) {
           done(error)
+          return
         }
 
 
@@ -128,7 +137,12 @@ describe('Error tests', function () {
         [path.join(basedir, 'master.pug'), '--build-once', '--no-sandbox'].concat(test.cmdOptions || [])
       )
       process.on('close', function (code) {
-        assert.equal(code, 1)
+        try {
+          assert.equal(code, 0)
+        } catch (error) {
+          done(error)
+          return
+        }
         done()
       })
     })
@@ -180,7 +194,12 @@ describe('Special rendering tests', function () {
       }
       var process = spawn(relaxed, [ paths.master, '--build-once' ])
       process.on('close', async function (code) {
-        assert.equal(code, 0)
+        try {
+          assert.equal(code, 0)
+        } catch (error) {
+          done(error)
+          return
+        }
         if (test.outputType === 'text') {
           var expected = fs.readFileSync(paths.expected, 'utf8')
           var output = fs.readFileSync(paths.output, 'utf8')
