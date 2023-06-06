@@ -6,10 +6,23 @@ on:
     branches: ["main"]
 
 jobs:
+  check-format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 18
+          registry-url: https://registry.npmjs.org/
+      - run: npm ci
+      - run: npm run check-format
   test:
     runs-on: ubuntu-latest
-
     steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
       - uses: actions/checkout@v2
       - name: Test
         run: docker build  -t relaxedjs-test . && docker run relaxedjs-test
