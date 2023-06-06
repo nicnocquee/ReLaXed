@@ -4,18 +4,23 @@ const mjpage = require('mathjax-node-page')
 
 exports.constructor = async function (params) {
   return {
-    htmlModifiers: [ asyncMathjax ]
+    htmlModifiers: [asyncMathjax],
   }
 }
 
 var asyncMathjax = async function (html) {
-  return new Promise(resolve => {
-    mjpage.mjpage(html, {
-      format: ['TeX']
-    }, {
-      mml: true,
-      css: true,
-      html: true
-    }, response => resolve(response))
+  return new Promise((resolve) => {
+    mjpage.mjpage(
+      html,
+      {
+        format: ['TeX'],
+      },
+      {
+        mml: true,
+        css: true,
+        html: true,
+      },
+      (response) => resolve(response)
+    )
   })
 }

@@ -21,12 +21,15 @@ function parseJson(str) {
   try {
     return JSON.parse(str)
   } catch (error) {
-    logError(error, 'ReLaXed error: Could not parse locals JSON, see error above.')
+    logError(
+      error,
+      'ReLaXed error: Could not parse locals JSON, see error above.'
+    )
   }
 }
 
 function isPathToJsonFile(filePath) {
-  return path.extname(filePath) === ".json"
+  return path.extname(filePath) === '.json'
 }
 
 function isLastLocalJsonPath(filePath) {

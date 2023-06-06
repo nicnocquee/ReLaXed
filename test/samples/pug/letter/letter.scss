@@ -12,8 +12,8 @@ body {
   height: 80px;
   .logo {
     height: 2cm;
-    width:auto;
-    position:absolute;
+    width: auto;
+    position: absolute;
   }
 }
 .signature {
@@ -29,6 +29,7 @@ body {
 .main-text {
   text-align: justify;
 }
-.opening, .closing {
+.opening,
+.closing {
   margin: 50px 0 20px 0px;
 }

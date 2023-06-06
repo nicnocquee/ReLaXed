@@ -7,15 +7,17 @@ exports.constructor = async function (params) {
     watchers: [
       {
         extensions: ['.vegalite.json'],
-        handler: vegaliteHandler
-      }
-    ]
+        handler: vegaliteHandler,
+      },
+    ],
   }
 }
 
 var vegaliteHandler = async function (vegalitePath, page) {
   var vegaliteSpec = fs.readFileSync(vegalitePath, 'utf8')
-  var html = pug.renderFile(path.join(__dirname, 'template.pug'), { vegaliteSpec })
+  var html = pug.renderFile(path.join(__dirname, 'template.pug'), {
+    vegaliteSpec,
+  })
 
   await page.setContent(html)
   await page.waitForSelector('#vis svg')
@@ -29,6 +31,8 @@ var vegaliteHandler = async function (vegalitePath, page) {
     return el.outerHTML
   })
 
-  var svgPath = vegalitePath.substr(0, vegalitePath.length - '.vegalite.json'.length) + '.svg'
+  var svgPath =
+    vegalitePath.substr(0, vegalitePath.length - '.vegalite.json'.length) +
+    '.svg'
   fs.writeFileSync(svgPath, svg)
 }

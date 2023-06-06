@@ -7,9 +7,9 @@ exports.constructor = async function (params) {
     watchers: [
       {
         extensions: ['.flowchart', '.flowchart.json'],
-        handler: flowchartHandler
-      }
-    ]
+        handler: flowchartHandler,
+      },
+    ],
   }
 }
 
@@ -22,7 +22,7 @@ var flowchartHandler = async function (flowchartPath, page) {
 
   var possibleConfs = [
     path.join(path.resolve(flowchartPath, '..'), 'flowchart.default.json'),
-    flowchartPath + '.json'
+    flowchartPath + '.json',
   ]
 
   for (var myPath of possibleConfs) {
@@ -33,7 +33,7 @@ var flowchartHandler = async function (flowchartPath, page) {
 
   var html = pug.renderFile(path.join(__dirname, 'template.pug'), {
     flowchartSpec,
-    flowchartConf
+    flowchartConf,
   })
 
   await page.setContent(html)

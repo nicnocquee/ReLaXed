@@ -13,7 +13,7 @@ const katex = require('./katex')
 exports.plugins = {
   mathjax,
   katex,
-  markdown
+  markdown,
 }
 
 // THESE ARE PLUGINS ADDING NO OVERHEAD, SO SAFE TO BE USED BY DEFAULT
@@ -27,5 +27,5 @@ exports.defaultPlugins = [
   flowchart,
   mermaid,
   scss,
-  markdown
+  markdown,
 ]

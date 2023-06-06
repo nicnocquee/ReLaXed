@@ -7,16 +7,17 @@ exports.constructor = async function (params) {
     watchers: [
       {
         extensions: ['.chart.js'],
-        handler: chartjsHandler
-      }
-    ]
+        handler: chartjsHandler,
+      },
+    ],
   }
 }
 
-
 var chartjsHandler = async function (chartjsPath, page) {
   var chartSpec = fs.readFileSync(chartjsPath, 'utf8')
-  var html = pug.renderFile(path.join(__dirname, 'template.pug'), { chartSpec })
+  var html = pug.renderFile(path.join(__dirname, 'template.pug'), {
+    chartSpec,
+  })
   var tempHTML = chartjsPath + '.htm'
 
   fs.writeFileSync(tempHTML, html)
@@ -25,7 +26,8 @@ var chartjsHandler = async function (chartjsPath, page) {
 
   const dataUrl = await page.evaluate(() => window.pngData)
   const { buffer } = parseDataUrl(dataUrl)
-  var pngPath = chartjsPath.substr(0, chartjsPath.length - '.chart.js'.length) + '.png'
+  var pngPath =
+    chartjsPath.substr(0, chartjsPath.length - '.chart.js'.length) + '.png'
   fs.writeFileSync(pngPath, buffer, 'base64')
 }
 // Scrape (pull) images from the web
@@ -37,6 +39,6 @@ var parseDataUrl = function (dataUrl) {
   }
   return {
     mime: matches[1],
-    buffer: Buffer.from(matches[2], 'base64')
+    buffer: Buffer.from(matches[2], 'base64'),
   }
 }

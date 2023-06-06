@@ -33,7 +33,7 @@ p {
   line-height: 1.5em;
   font-size: 1.1em !important;
   text-align: justify;
- }
+}
 
 a {
   text-decoration: underline;
@@ -75,7 +75,6 @@ $sidebar-height: 943px;
       rx: 5px;
       ry: 5px;
       stroke: black;
-
     }
   }
   .edgelabel {
@@ -84,7 +83,8 @@ $sidebar-height: 943px;
   }
 }
 
-.message, figure {
+.message,
+figure {
   page-break-inside: avoid;
 }
 
@@ -92,17 +92,16 @@ $sidebar-height: 943px;
   margin-bottom: 1em !important;
 }
 
-
 figure {
   margin-top: 0.5em;
   margin-bottom: 1em;
   padding: 0.5em;
-  &> .panel {
+  & > .panel {
     position: relative;
     display: inline-block;
     vertical-align: top;
     width: 100%;
-    &> .label {
+    & > .label {
       font-weight: bold;
       position: absolute;
       top: 0;
@@ -121,31 +120,35 @@ figure {
     text-align: justify;
     width: 100%;
     margin-top: 1em;
-    &> .reference, .title {
+    & > .reference,
+    .title {
       font-weight: bold;
 
       display: inline;
       margin-right: 0.5em;
     }
-    &> .reference {
+    & > .reference {
       color: darken($primary_color, 50%);
       &::after {
         content: ': ';
       }
     }
-    &> .title {
+    & > .title {
       color: darken($primary_color, 40%);
     }
-    &> .caption {
+    & > .caption {
       display: inline;
     }
   }
 }
 
-
 @for $i from 1 to 20 {
-  .width-#{$i}cm { width: #{10 * $i}mm !important; }
+  .width-#{$i}cm {
+    width: #{10 * $i}mm !important;
+  }
 }
 @for $i from 1 to 20 {
-  .top-#{$i}mm { margin-top: #{$i}mm; }
+  .top-#{$i}mm {
+    margin-top: #{$i}mm;
+  }
 }

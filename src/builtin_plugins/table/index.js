@@ -1,4 +1,3 @@
-
 const pug = require('pug')
 const fs = require('fs')
 const path = require('path')
@@ -11,21 +10,25 @@ exports.constructor = async function (params) {
     watchers: [
       {
         extensions: ['.table.csv', '.htable.csv', '.htable.md.csv'],
-        async handler (tablePath, page) {
+        async handler(tablePath, page) {
           await csvTtableToPug(tablePath)
-        }
-      }
-    ]
+        },
+      },
+    ],
   }
 }
 
 var csvTtableToPug = async function (tablePath) {
-  const rows = await csv({output: 'csv', noheader: true, delimiter: 'auto'}).fromFile(tablePath)
+  const rows = await csv({
+    output: 'csv',
+    noheader: true,
+    delimiter: 'auto',
+  }).fromFile(tablePath)
   var isMarkdown = tablePath.includes('.md.')
   if (isMarkdown) {
     console.log('ah')
-    md = markdown({html: true})
-    rows.forEach(row => {
+    md = markdown({ html: true })
+    rows.forEach((row) => {
       row.forEach((data, i) => {
         row[i] = md.render(data)
       })
@@ -41,10 +44,12 @@ var csvTtableToPug = async function (tablePath) {
   }
   var html = await pug.renderFile(path.join(__dirname, 'template.pug'), {
     header: header,
-    tbody: rows
+    tbody: rows,
   })
-  var pugPath = tablePath.substr(0, tablePath.length - extension.length - 3*isMarkdown) + '.pug'
-  var jade = await new Promise(resolve => {
+  var pugPath =
+    tablePath.substr(0, tablePath.length - extension.length - 3 * isMarkdown) +
+    '.pug'
+  var jade = await new Promise((resolve) => {
     html2jade.convertHtml(html, { bodyless: true }, function (err, jade) {
       if (err) {
         console.log('Error:', err)

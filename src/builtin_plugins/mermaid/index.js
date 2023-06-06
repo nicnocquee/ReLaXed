@@ -7,16 +7,16 @@ exports.constructor = async function (params) {
     watchers: [
       {
         extensions: ['.mermaid'],
-        handler: mermaidHandler
-      }
-    ]
+        handler: mermaidHandler,
+      },
+    ],
   }
 }
 
 var mermaidHandler = async function (mermaidPath, page) {
   var mermaidSpec = fs.readFileSync(mermaidPath, 'utf8')
   var html = pug.renderFile(path.join(__dirname, 'template.pug'), {
-    mermaidSpec
+    mermaidSpec,
   })
 
   await page.setContent(html)

@@ -23,16 +23,25 @@ program.parse(process.argv)
 
 program.shadow = program.shadow || 15
 var subprocess = spawn('convert', [
-  '-density', '300',
+  '-density',
+  '300',
   input + '[0]',
-  '-resize', ((program.size || 600) - 4 * program.shadow).toString(),
-  `(`, '+clone', '-background', 'black',
-  '-shadow', `${program.shadow}x${program.shadow}+1+1`, `)`,
+  '-resize',
+  ((program.size || 600) - 4 * program.shadow).toString(),
+  `(`,
+  '+clone',
+  '-background',
+  'black',
+  '-shadow',
+  `${program.shadow}x${program.shadow}+1+1`,
+  `)`,
   '+swap',
-  '-background', 'white',
-  '-layers', 'merge',
+  '-background',
+  'white',
+  '-layers',
+  'merge',
   '+repage',
-  output
+  output,
 ])
 
 subprocess

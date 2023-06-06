@@ -88,18 +88,17 @@ ReLaXed has support for Markdown, LaTeX-style mathematical equations (via [MathJ
 
 ## Installing ReLaXed
 
-Install ReLaXed via [NPM](https://www.npmjs.com/) with this command (do not use ``sudo``):
+Install ReLaXed via [NPM](https://www.npmjs.com/) with this command (do not use `sudo`):
 
 ```
-npm i -g relaxedjs
+npm i -g @nicnocquee/relaxedjs
 ```
 
-This will provide your system with the ``relaxed`` command. If the installation fails, refer to the [troubleshooting page](https://github.com/RelaxedJS/ReLaXed/wiki/Troubleshooting). You can also use ReLaXed via Docker (see [this repository](https://github.com/jonathanasquier/ReLaXed-docker/blob/master/Dockerfile))
-
+This will provide your system with the `relaxed` command. If the installation fails, refer to the [troubleshooting page](https://github.com/RelaxedJS/ReLaXed/wiki/Troubleshooting). You can also use ReLaXed via Docker (see [this repository](https://github.com/jonathanasquier/ReLaXed-docker/blob/master/Dockerfile))
 
 ## Getting started
 
-To start a project, create a new document ``my_document.pug`` with the following Pug content:
+To start a project, create a new document `my_document.pug` with the following Pug content:
 
 ```pug
 h1 My document's title
@@ -112,7 +111,7 @@ Then start ReLaXed from a terminal:
 relaxed my_document.pug
 ```
 
-ReLaXed will generate ``my_document.pdf`` from ``my_document.pug``, then watch its directory and subdirectories so that every time a file changes, ``my_document.pdf`` will be re-generated.
+ReLaXed will generate `my_document.pdf` from `my_document.pug`, then watch its directory and subdirectories so that every time a file changes, `my_document.pdf` will be re-generated.
 
 It is also possible to generate the PDF file just once, with no sub-sequent file-watching, with this command:
 
@@ -122,7 +121,7 @@ relaxed my_document.pug --build-once
 
 To go further:
 
-- Read more about [usage and options](https://github.com/RelaxedJS/ReLaXed/wiki/Command-line-options) of the ``relaxed`` command.
+- Read more about [usage and options](https://github.com/RelaxedJS/ReLaXed/wiki/Command-line-options) of the `relaxed` command.
 - Learn more about the capabilities of the [Pug language](https://pugjs.org/api/getting-started.html)
 - Learn how to use or write [ReLaXed plugins](https://github.com/RelaxedJS/ReLaXed/wiki/Plugins)
 - Browse the [examples](https://github.com/RelaxedJS/ReLaXed-examples)
@@ -153,15 +152,16 @@ ReLaXed consists of a few lines of code binding together other software. It uses
 <p align="center"><img width='600px' src="https://github.com/RelaxedJS/ReLaXed/raw/master/docs/relaxed_stack.png" /></p>
 
 ## Using it as a Node Module
+
 **MasterToPDF.js** is exposed by default as main package, which can be used directly.
 
-An Example: 
+An Example:
 
 ```javascript
-const { masterToPDF } = require('relaxedjs');
-const puppeteer = require('puppeteer');
-const plugins = require('relaxedjs/src/plugins');
-const path = require('path');
+const { masterToPDF } = require('relaxedjs')
+const puppeteer = require('puppeteer')
+const plugins = require('relaxedjs/src/plugins')
+const path = require('path')
 
 class HTML2PDF {
   constructor() {
@@ -173,36 +173,35 @@ class HTML2PDF {
         '--disable-extensions',
         '--disable-sync',
       ],
-    };
+    }
 
     this.relaxedGlobals = {
       busy: false,
       config: {},
       configPlugins: [],
-    };
+    }
 
-    this._initializedPlugins = false;
+    this._initializedPlugins = false
   }
 
   async _initializePlugins() {
-    if (this._initializedPlugins) return; // Do not initialize plugins twice
+    if (this._initializedPlugins) return // Do not initialize plugins twice
     for (const [i, plugin] of plugins.builtinDefaultPlugins.entries()) {
-      plugins.builtinDefaultPlugins[i] = await plugin.constructor();
+      plugins.builtinDefaultPlugins[i] = await plugin.constructor()
     }
-    await plugins.updateRegisteredPlugins(this.relaxedGlobals, '/');
+    await plugins.updateRegisteredPlugins(this.relaxedGlobals, '/')
 
-    const chrome = await puppeteer.launch(this.puppeteerConfig);
-    this.relaxedGlobals.puppeteerPage = await chrome.newPage();
-    this._initializedPlugins = true;
+    const chrome = await puppeteer.launch(this.puppeteerConfig)
+    this.relaxedGlobals.puppeteerPage = await chrome.newPage()
+    this._initializedPlugins = true
   }
 
   async pdf(templatePath, json_data, tempHtmlPath, outputPdfPath) {
-    await this._initializePlugins();
+    await this._initializePlugins()
     if (this._initializedPlugins) {
       // Paths must be absolute
-      const defaultTempHtmlPath = tempHtmlPath || path.resolve('temp.html');
-      const defaultOutputPdfPath =
-        outputPdfPath || path.resolve('output.pdf');
+      const defaultTempHtmlPath = tempHtmlPath || path.resolve('temp.html')
+      const defaultOutputPdfPath = outputPdfPath || path.resolve('output.pdf')
 
       await masterToPDF(
         templatePath,
@@ -210,22 +209,22 @@ class HTML2PDF {
         defaultTempHtmlPath,
         defaultOutputPdfPath,
         json_data
-      );
+      )
     }
   }
 }
 
-module.exports = new HTML2PDF();
+module.exports = new HTML2PDF()
 ```
+
 Usage:
 
 ```javascript
-const HTML2PDF = require('./HTML2PDF.js');
-(async () => {
-    await HTML2PDF.pdf('./template.pug', {"a":"b", "c":"d"});
-})();
+const HTML2PDF = require('./HTML2PDF.js')
+;(async () => {
+  await HTML2PDF.pdf('./template.pug', { a: 'b', c: 'd' })
+})()
 ```
-
 
 ## Contribute!
 

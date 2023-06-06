@@ -17,30 +17,30 @@ var createConfigPlugin = async function (pluginName, parameters, localPath) {
     var possiblePaths = [
       {
         location: path.join(localPath, `${pluginName}.plugin.js`),
-        origin: `local file ${pluginName}.plugin.js`
+        origin: `local file ${pluginName}.plugin.js`,
       },
       {
         location: path.join(localPath, pluginName),
-        origin: `local plugin ${pluginName}`
+        origin: `local plugin ${pluginName}`,
       },
       {
         location: path.join(localPath, `relaxed-${pluginName}`),
-        origin: `local relaxed-${pluginName}`
+        origin: `local relaxed-${pluginName}`,
       },
       {
         location: `relaxed-${pluginName}`,
-        origin: `relaxed-${pluginName}`
+        origin: `relaxed-${pluginName}`,
       },
       {
         // linux
         location: `/usr/local/lib/node_modules/relaxed-${pluginName}`,
-        origin: `relaxed-${pluginName}`
+        origin: `relaxed-${pluginName}`,
       },
       {
         // travis
         location: `/home/travis/build/RelaxedJS/relaxed-${pluginName}`,
-        origin: `relaxed-${pluginName}`
-      }
+        origin: `relaxed-${pluginName}`,
+      },
     ]
     for (var possiblePath of possiblePaths) {
       try {
@@ -73,7 +73,7 @@ var listPluginHooks = function (pluginList) {
     'htmlModifiers',
     'pageModifiers',
     'page2ndModifiers',
-    'postPDF'
+    'postPDF',
   ]
   for (var hook of hooks) {
     var hookInstances = []
@@ -87,7 +87,7 @@ var listPluginHooks = function (pluginList) {
           for (var pluginHook of thisPluginHooks) {
             hookInstances.push({
               instance: pluginHook,
-              origin: plugin.origin
+              origin: plugin.origin,
             })
           }
         }
@@ -109,10 +109,10 @@ var updateRegisteredPlugins = async function (relaxedGlobals, inputDir) {
     var plugin, pluginName, params
     for (var pluginDefinition of relaxedGlobals.config.plugins) {
       try {
-        if (typeof (pluginDefinition) === 'string') {
-          [pluginName, params] = [pluginDefinition, {}]
+        if (typeof pluginDefinition === 'string') {
+          ;[pluginName, params] = [pluginDefinition, {}]
         } else {
-          [pluginName, params] = Object.entries(pluginDefinition)[0]
+          ;[pluginName, params] = Object.entries(pluginDefinition)[0]
         }
         console.log(colors.magenta(`    - ${pluginName} plugin`))
         plugin = await createConfigPlugin(pluginName, params, inputDir)
@@ -123,7 +123,9 @@ var updateRegisteredPlugins = async function (relaxedGlobals, inputDir) {
       }
     }
   }
-  var allPlugins = relaxedGlobals.configPlugins.concat(builtinPlugins.defaultPlugins)
+  var allPlugins = relaxedGlobals.configPlugins.concat(
+    builtinPlugins.defaultPlugins
+  )
   relaxedGlobals.pluginHooks = listPluginHooks(allPlugins)
 
   // TODO: remove some of these extensions as they get covered by plugins.
@@ -136,12 +138,13 @@ var updateRegisteredPlugins = async function (relaxedGlobals, inputDir) {
     '.svg',
     '.png',
     '.jpeg',
-    '.jpg'
+    '.jpg',
   ]
 
   for (var watcher of relaxedGlobals.pluginHooks.watchers) {
     var exts = watcher.instance.extensions
-    relaxedGlobals.watchedExtensions = relaxedGlobals.watchedExtensions.concat(exts)
+    relaxedGlobals.watchedExtensions =
+      relaxedGlobals.watchedExtensions.concat(exts)
   }
 }
 
