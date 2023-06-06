@@ -2,7 +2,11 @@
 
 # ReLaXed
 
-[![Build Status](https://travis-ci.org/RelaxedJS/ReLaXed.svg?branch=master)](https://travis-ci.org/RelaxedJS/ReLaXed)
+## NOTES
+
+This is a fork of the original ReLaXed since it hasn't been updated for years. I only [fixed a bug where `--build-once` didn't terminate](https://github.com/nicnocquee/ReLaXed/commit/9d9578fa6aa8c317be898c453b4dd2bd759dcc95), formatted the codes with [Prettier](https://prettier.io/), and [containerized the tests](https://github.com/nicnocquee/ReLaXed/blob/main/Dockerfile). I'm not gonna add new features because I only need this project to create PDF from HTML in my work.
+
+## About
 
 ReLaXed creates PDF documents interactively using HTML or [Pug](https://pugjs.org/api/getting-started.html) (a shorthand for HTML). It allows complex layouts to be defined with CSS and JavaScript, while writing the content in a friendly, minimal syntax close to Markdown or LaTeX.
 
