@@ -83,6 +83,9 @@ test/samples/*/*/last_test_*
 test/samples/*/*/diff.png
 test/samples/*/*/master_temp.htm
 *.htm
+test/samples/*/*/*.pug
+test/samples/*/*/*.txt
+test/samples/*/*/*.csv
 
 # linux .directory
 .directory
